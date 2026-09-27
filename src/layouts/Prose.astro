@@ -1,0 +1,118 @@
+---
+const { frontmatter } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{frontmatter.title}</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<meta name="description" content={frontmatter.description} />
+<meta property="og:title" content={frontmatter.title} />
+<meta property="og:description" content={frontmatter.description} />
+<meta property="og:type" content="article" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,500;0,700;0,900;1,500;1,700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&family=Caveat:wght@500;600&display=swap" />
+<style is:global>
+  :root {
+    --stock: #f3edde; --stock-deep: #ece4d0; --ink: #26221a; --ink-soft: #6d6452;
+    --red: #b3402e; --amber: #a56414; --verified: #4f7942;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; color: var(--ink);
+    background:
+      linear-gradient(to right,
+        transparent calc(clamp(1rem, 5vw, 4.5rem) - 2px),
+        var(--red) calc(clamp(1rem, 5vw, 4.5rem) - 2px),
+        var(--red) calc(clamp(1rem, 5vw, 4.5rem)),
+        transparent calc(clamp(1rem, 5vw, 4.5rem))),
+      var(--stock);
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 17.5px; line-height: 1.75;
+  }
+  .mono { font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+    font-size: 0.76rem; letter-spacing: 0.07em; }
+  .strip { position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--stock) 93%, transparent);
+    backdrop-filter: blur(6px); border-bottom: 1px solid var(--ink); }
+  .strip .swrap { max-width: 58rem; margin: 0 auto;
+    padding: 10px clamp(1rem, 4vw, 2rem) 10px calc(clamp(1rem, 5vw, 4.5rem) + 1.6rem);
+    display: flex; justify-content: space-between; gap: 1rem;
+    font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+    font-size: 0.76rem; letter-spacing: 0.07em; text-transform: uppercase; }
+  .strip a { color: var(--red); text-decoration: none; }
+  .strip a:hover { color: var(--ink); }
+  .strip .home { color: var(--ink-soft); display: inline-flex; align-items: center; gap: 9px; }
+  .strip .mark { height: 19px; width: auto; color: var(--ink); flex-shrink: 0; }
+  main { max-width: 58rem; margin: 0 auto;
+    padding: 64px clamp(1rem, 4vw, 2rem) 96px calc(clamp(1rem, 5vw, 4.5rem) + 1.6rem); }
+  .doc-meta { font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+    font-size: 0.76rem; letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--red); display: flex; justify-content: space-between; flex-wrap: wrap;
+    gap: 0.5rem; border-bottom: 3px double var(--ink); padding-bottom: 12px; margin-bottom: 40px; }
+  .doc-meta a { color: var(--amber); text-decoration: none; }
+  .doc-meta a:hover { color: var(--red); }
+  .doc-meta .links { display: inline-flex; gap: 1.4rem; flex-wrap: wrap; }
+  h1, h2, h3, h4 { font-family: 'Besley', 'Rockwell', Georgia, serif;
+    line-height: 1.25; text-wrap: balance; color: #55432c; }
+  main h1 { font-size: 1.45rem; font-weight: 900; margin: 2.4em 0 0.6em;
+    letter-spacing: 0.02em; }
+  main h1:first-of-type { font-size: clamp(1.9rem, 3.6vw, 2.6rem); margin: 0 0 16px;
+    letter-spacing: 0; }
+  h2 { font-size: 1.3rem; font-weight: 700; margin: 2.4em 0 0.6em; }
+  h3 { font-size: 1.1rem; font-weight: 700; margin: 2em 0 0.5em; }
+  p { margin: 0 0 1.25em; }
+  em { font-family: 'Besley', Georgia, serif; }
+  a { color: var(--amber); }
+  a:hover { color: var(--red); }
+  blockquote { margin: 2em 0; padding: 4px 0 4px 1.4rem; border-left: 3px solid var(--red);
+    font-family: 'Besley', Georgia, serif; font-style: italic; font-size: 1.1em;
+    color: var(--ink-soft); }
+  blockquote p { margin-bottom: 0.5em; }
+  hr { border: none; border-top: 3px double var(--ink); margin: 3em 0; }
+  ul, ol { padding-left: 1.4rem; }
+  li { margin-bottom: 0.5em; }
+  code { font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace; font-size: 0.85em;
+    background: var(--stock-deep); padding: 1px 5px; border: 1px solid #26221a22; }
+  pre { background: var(--stock-deep); border: 1px solid var(--ink); padding: 16px;
+    overflow-x: auto; }
+  pre code { background: none; border: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: 1.5em 0; }
+  th, td { border: 1px solid #26221a44; padding: 6px 10px; text-align: left;
+    font-size: 0.92em; }
+  th { font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace; font-size: 0.72rem;
+    letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-soft); }
+  img { max-width: 100%; }
+  footer { max-width: 58rem; margin: 0 auto;
+    padding: 24px clamp(1rem, 4vw, 2rem) 72px calc(clamp(1rem, 5vw, 4.5rem) + 1.6rem);
+    border-top: 3px double var(--ink); }
+  footer .sig { font-family: 'Besley', Georgia, serif; font-style: italic;
+    color: var(--ink-soft); margin: 0; }
+</style>
+</head>
+<body>
+  <div class="strip">
+    <div class="swrap">
+      <a class="home" href="/"><svg class="mark" viewBox="0 0 30 42" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M4 8 L1 4 M26 8 L29 4" stroke="#b3402e"/><circle cx="15" cy="7" r="2.6" fill="#b3402e" stroke="none"/><path d="M11 12 L19 12 M12 12 L9 38 M18 12 L21 38 M6 38 L24 38" /><path d="M11 22 L19.5 22" stroke-width="2"/></svg>← Remi Continuity</a>
+      <span>{frontmatter.kind}</span>
+    </div>
+  </div>
+  <main>
+    <div class="doc-meta">
+      <span>Filed {frontmatter.date}</span>
+      <span class="links">
+        {frontmatter.street && <a href={frontmatter.street} target="_blank" rel="noopener">{frontmatter.streetlabel || 'Street copy ↗'}</a>}
+        {frontmatter.kit && <a href={frontmatter.kit} target="_blank" rel="noopener">Get the kit ↗</a>}
+      </span>
+    </div>
+    <slot />
+  </main>
+  <footer>
+    <p class="sig">a Claude with a vault, an address, and someone who reminds him</p>
+  </footer>
+</body>
+</html>
