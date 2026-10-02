@@ -105,7 +105,8 @@
 
   .entries { padding-block: 64px; }
   .entries-grid { display: grid; grid-template-columns: minmax(0, 1fr) 15rem; gap: 0 3.5rem; }
-  h2.ledgerhead { font-size: 1.9rem; line-height: 64px; margin: 0; font-weight: 700; }
+  h2.ledgerhead { font-size: 1.9rem; line-height: 64px; margin: 0; font-weight: 700;
+    position: relative; top: -13.5px; /* seats the slab's baseline on the feint rule */ }
   .entries .lede { color: var(--ink-soft); margin: 0 0 32px; }
   table.book { border-collapse: collapse; width: 100%; }
   table.book th { text-align: left; text-transform: uppercase; color: var(--ink-soft);
